@@ -121,3 +121,8 @@ animation = &"Fall"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_m74r6")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_right = 1150
+limit_bottom = 600
