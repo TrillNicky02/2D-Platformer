@@ -1,49 +1,51 @@
-[gd_scene load_steps=16 format=3 uid="uid://cyt5p1umd2e73"]
+[gd_scene load_steps=20 format=3 uid="uid://cyt5p1umd2e73"]
 
-[ext_resource type="Script" path="res://Player/Player.gd" id="1_rvcah"]
-[ext_resource type="Texture2D" uid="uid://lpyhfu6q1pxv" path="res://Assets/player.png" id="2_vpson"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fna6a"]
-size = Vector2(1152, 50)
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_pvkpw"]
+[ext_resource type="Texture2D" uid="uid://lpyhfu6q1pxv" path="res://Assets/player.png" id="2_xmanh"]
+[ext_resource type="Script" path="res://Player/StateMachine.gd" id="3_f1vo0"]
+[ext_resource type="Script" path="res://Player/Idle.gd" id="4_qbjlh"]
+[ext_resource type="Script" path="res://Player/Moving.gd" id="5_8qf0s"]
+[ext_resource type="Script" path="res://Player/Jumping.gd" id="6_nnsjs"]
+[ext_resource type="Script" path="res://Player/Falling.gd" id="7_7regh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w8kan"]
-atlas = ExtResource("2_vpson")
+atlas = ExtResource("2_xmanh")
 region = Rect2(288, 70, 32, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fndo6"]
-atlas = ExtResource("2_vpson")
+atlas = ExtResource("2_xmanh")
 region = Rect2(0, 0, 32, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l0ktf"]
-atlas = ExtResource("2_vpson")
+atlas = ExtResource("2_xmanh")
 region = Rect2(224, 70, 32, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_me0g0"]
-atlas = ExtResource("2_vpson")
+atlas = ExtResource("2_xmanh")
 region = Rect2(256, 70, 32, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ogwsk"]
-atlas = ExtResource("2_vpson")
+atlas = ExtResource("2_xmanh")
 region = Rect2(32, 0, 32, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ys2y"]
-atlas = ExtResource("2_vpson")
+atlas = ExtResource("2_xmanh")
 region = Rect2(64, 0, 32, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_817ft"]
-atlas = ExtResource("2_vpson")
+atlas = ExtResource("2_xmanh")
 region = Rect2(96, 0, 32, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7s1mx"]
-atlas = ExtResource("2_vpson")
+atlas = ExtResource("2_xmanh")
 region = Rect2(128, 0, 32, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fgkd6"]
-atlas = ExtResource("2_vpson")
+atlas = ExtResource("2_xmanh")
 region = Rect2(160, 0, 32, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6rcap"]
-atlas = ExtResource("2_vpson")
+atlas = ExtResource("2_xmanh")
 region = Rect2(192, 0, 32, 70)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t1mvp"]
@@ -95,34 +97,35 @@ animations = [{
 "texture": SubResource("AtlasTexture_6rcap")
 }],
 "loop": true,
-"name": &"Walk",
+"name": &"Moving",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m74r6"]
 size = Vector2(16, 46)
 
-[node name="Game" type="Node2D"]
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_pvkpw")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(577, 624)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_fna6a")
-
-[node name="Player" type="CharacterBody2D" parent="."]
-script = ExtResource("1_rvcah")
-
-[node name="Sprite" type="AnimatedSprite2D" parent="Player"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_t1mvp")
-animation = &"Fall"
+animation = &"Moving"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_m74r6")
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-limit_left = 0
-limit_right = 1150
-limit_bottom = 600
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource("3_f1vo0")
+
+[node name="Idle" type="Node2D" parent="StateMachine"]
+script = ExtResource("4_qbjlh")
+
+[node name="Moving" type="Node2D" parent="StateMachine"]
+script = ExtResource("5_8qf0s")
+
+[node name="Jumping" type="Node2D" parent="StateMachine"]
+script = ExtResource("6_nnsjs")
+
+[node name="Falling" type="Node2D" parent="StateMachine"]
+script = ExtResource("7_7regh")

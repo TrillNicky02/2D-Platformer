@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgjp4m8182jlj"]
+
+[ext_resource type="Script" path="res://Levels/Game_Over.gd" id="1_uu7yr"]
+[ext_resource type="FontFile" uid="uid://5dllgfpgt0vq" path="res://Assets/Thruster-Regular.ttf" id="2_m1s5w"]
+
+[node name="Game_Over" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 608.0
+script = ExtResource("1_uu7yr")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -44.0
+offset_top = -26.0
+offset_right = 1052.0
+offset_bottom = 642.0
+color = Color(0.203922, 0.227451, 0.25098, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 246.0
+theme_override_fonts/font = ExtResource("2_m1s5w")
+text = "Congratulations!!
+You Win !"
+
+[node name="Play_Again" type="Button" parent="."]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 300.0
+offset_right = 612.0
+offset_bottom = 340.0
+theme_override_fonts/font = ExtResource("2_m1s5w")
+text = "Play Again?"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 360.0
+offset_right = 612.0
+offset_bottom = 400.0
+theme_override_fonts/font = ExtResource("2_m1s5w")
+text = "Quit"
+
+[connection signal="pressed" from="Play_Again" to="." method="_on_Play_Again_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
