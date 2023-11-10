@@ -9,11 +9,11 @@ extends Node
 
 func _ready():
 	if get_child_count(): 
-		print("The get_child_count  ", get_child_count())
+		#print("The get_child_count  ", get_child_count())
 		set_state(get_children()[0].name)
 
 func _physics_process(delta):
-	print("this is the state", state)
+	#print("this is the state", state)
 	
 	if state != null:
 		if state and state.has_method("physics_process"):

@@ -1,16 +1,25 @@
-[gd_scene load_steps=18 format=3 uid="uid://yx285jh2gnlr"]
+[gd_scene load_steps=27 format=3 uid="uid://yx285jh2gnlr"]
 
 [ext_resource type="Texture2D" uid="uid://cnnkibx1gfamf" path="res://Assets/Tiles.png" id="1_8i4hy"]
 [ext_resource type="Texture2D" uid="uid://dqhfol7a3q2cw" path="res://Assets/portal_start.png" id="1_72qwb"]
 [ext_resource type="Script" path="res://Levels/Spawn.gd" id="1_l4ofl"]
-[ext_resource type="Script" path="res://Levels/Exit.gd" id="2_epy2i"]
-[ext_resource type="Texture2D" uid="uid://dl700q7wb2vr6" path="res://Assets/portal_end.png" id="3_mmr4g"]
+[ext_resource type="PackedScene" uid="uid://dwdwesm243m65" path="res://Levels/Exit_to_2.tscn" id="4_ptw7v"]
+[ext_resource type="PackedScene" uid="uid://c7r1xhr0fi15j" path="res://Levels/PreExit.tscn" id="5_vtjay"]
 [ext_resource type="PackedScene" uid="uid://bp3akucote8ju" path="res://Levels/Camera.tscn" id="6_4fe2t"]
 [ext_resource type="Script" path="res://StateMachine/Player_Container.gd" id="6_xicrw"]
 [ext_resource type="Script" path="res://Enemies/Enemy_Container.gd" id="7_6v7bp"]
 [ext_resource type="PackedScene" uid="uid://cq3m11r4bttrh" path="res://Enemies/Orc.tscn" id="7_bih0b"]
 [ext_resource type="Texture2D" uid="uid://cpanhaqo5ilr2" path="res://Assets/tilemap.png" id="7_llqo2"]
 [ext_resource type="PackedScene" uid="uid://bxreapar8rvrr" path="res://Enemies/Lizard.tscn" id="9_pphve"]
+[ext_resource type="Script" path="res://UI/HUD.gd" id="12_wlrcw"]
+[ext_resource type="FontFile" uid="uid://dwxfgvmf781w3" path="res://Assets/Hyperspace Bold.otf" id="13_2tvv6"]
+[ext_resource type="AudioStream" uid="uid://ci5f25x1wu4ym" path="res://Assets/myMix2.mp3" id="14_mlchg"]
+[ext_resource type="AudioStream" uid="uid://d1ecc1l4hmc8u" path="res://Assets/173126__death-sound-male.mp3" id="15_68vc2"]
+[ext_resource type="AudioStream" uid="uid://bdfuu6tt8gbw" path="res://Assets/237986__zyrytsounds__monster-sound-2.mp3" id="16_hptiy"]
+[ext_resource type="AudioStream" uid="uid://snjm7hrxsyyd" path="res://Assets/672928__xdlxedgbrdkjgrunkk__crocodyle.mp3" id="17_pt10v"]
+[ext_resource type="AudioStream" uid="uid://cpi5lf4kujsew" path="res://Assets/198843__church-bell.mp3" id="18_0y8e5"]
+[ext_resource type="AudioStream" uid="uid://dhqm15oitsgrr" path="res://Assets/myWolf.mp3" id="19_a0mw8"]
+[ext_resource type="AudioStream" uid="uid://bumqupmkir52v" path="res://Assets/209578__cash-register-purchase.mp3" id="21_jgqod"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2hho8"]
 texture = ExtResource("1_8i4hy")
@@ -792,16 +801,9 @@ position = Vector2(200.8, 201.8)
 texture = ExtResource("1_72qwb")
 script = ExtResource("1_l4ofl")
 
-[node name="Exit_to_2" type="Area2D" parent="."]
-script = ExtResource("2_epy2i")
+[node name="Exit_to_2" parent="." instance=ExtResource("4_ptw7v")]
 
-[node name="Sprite2D" type="Sprite2D" parent="Exit_to_2"]
-position = Vector2(3643, 494)
-texture = ExtResource("3_mmr4g")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Exit_to_2"]
-position = Vector2(3643, 494)
-polygon = PackedVector2Array(-9, -68, -34, -9, -30, 33, -3, 67, 33, 31, 30, -35)
+[node name="PreExit" parent="." instance=ExtResource("5_vtjay")]
 
 [node name="Player_Container" type="Node2D" parent="."]
 script = ExtResource("6_xicrw")
@@ -836,4 +838,75 @@ position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_offset = -0.8
 
-[connection signal="body_entered" from="Exit_to_2" to="Exit_to_2" method="_on_Exit_body_entered"]
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_wlrcw")
+
+[node name="Score" type="Label" parent="UI/HUD"]
+layout_mode = 1
+offset_left = 10.0
+offset_right = 210.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("13_2tvv6")
+theme_override_font_sizes/font_size = 20
+text = "Score:"
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -212.0
+offset_right = -12.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("13_2tvv6")
+theme_override_font_sizes/font_size = 20
+text = "Time:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="UI/HUD"]
+autostart = true
+
+[node name="Level1_Music1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_mlchg")
+volume_db = 0.2
+autoplay = true
+
+[node name="PlayerDeath_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_68vc2")
+volume_db = 0.2
+
+[node name="OrcDeath_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_hptiy")
+volume_db = 0.2
+
+[node name="Lizard_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("17_pt10v")
+volume_db = 0.2
+
+[node name="PreExit_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_0y8e5")
+volume_db = 0.2
+
+[node name="Exit_sound" type="AudioStreamPlayer2D" parent="."]
+volume_db = 0.2
+
+[node name="Wolf_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_a0mw8")
+volume_db = 0.2
+
+[node name="Coin_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("21_jgqod")
+volume_db = 0.2
+
+[connection signal="timeout" from="UI/HUD/Timer" to="UI/HUD" method="_on_timer_timeout"]

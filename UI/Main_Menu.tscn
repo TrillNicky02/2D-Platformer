@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://diee3fmty8y7b"]
+
+[ext_resource type="Theme" uid="uid://b2axwl8yqhdj4" path="res://UI/UI.tres" id="1_1du6q"]
+[ext_resource type="Script" path="res://UI/Main_Menu.gd" id="1_2m0jd"]
+[ext_resource type="Shader" path="res://Effects/Main_Menu.gdshader" id="3_3n2ub"]
+[ext_resource type="AudioStream" uid="uid://cusaymln88wt3" path="res://Assets/515434__tictac9__african-safari-beat-tictac9.mp3" id="4_bocoy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rx4up"]
+shader = ExtResource("3_3n2ub")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = 5.0
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.1
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.0
+shader_parameter/waterdeep = 0.3
+shader_parameter/WATER_COL = Color(0, 0, 0, 1)
+shader_parameter/WATER2_COL = Color(0, 0.2, 0, 1)
+shader_parameter/FOAM_COL = Color(0.4, 0.1, 0.6, 1)
+
+[node name="Main_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1du6q")
+script = ExtResource("1_2m0jd")
+
+[node name="Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_rx4up")
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 650.0
+color = Color(0, 0, 0, 0.501961)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -228.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Welcome To The 2D-Platformer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Play"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 40.0
+offset_right = 100.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+
+[node name="Main_Menu_Music1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_bocoy")
+volume_db = 0.2
+autoplay = true
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

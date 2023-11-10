@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5mu3t7o7yb52"]
+
+[ext_resource type="Theme" uid="uid://b2axwl8yqhdj4" path="res://UI/UI.tres" id="1_bbmt2"]
+[ext_resource type="Script" path="res://UI/Winner_End_Menu.gd" id="2_s6y74"]
+[ext_resource type="Shader" path="res://Effects/Winner_End_Menu.gdshader" id="3_k8nja"]
+[ext_resource type="AudioStream" uid="uid://dhcey3co362vt" path="res://Assets/Firework_Mix.mp3" id="4_7f6vr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dtcb8"]
+shader = ExtResource("3_k8nja")
+shader_parameter/TWOPI = 6.28319
+shader_parameter/NUM_EXPLOSIONS = 8.0
+shader_parameter/NUM_PARTICLES = 70.0
+shader_parameter/MOD3 = Vector3(0.1031, 0.11369, 0.13787)
+
+[node name="Winner_End_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_bbmt2")
+script = ExtResource("2_s6y74")
+
+[node name="Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_dtcb8")
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 650.0
+color = Color(0, 0, 0, 0.980392)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -218.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Congratulations! 
+All You Do Is
+Win Win Win Win Win"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="WEM_Music1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_7f6vr")
+volume_db = 0.2
+autoplay = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

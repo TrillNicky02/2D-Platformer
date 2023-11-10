@@ -10,7 +10,18 @@ func _ready():
 
 func _physics_process(_delta):
 	if not has_node("Player"):
+		##
+		var camera = get_node_or_null("/root/Game/Camera")
+		if camera != null:
+			camera.add_trauma(3.0)
+			
+		##
+		
 		var player = Player.instantiate()
 		player.position = starting_position
 		add_child(player)
+
+
+
+
 

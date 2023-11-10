@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7r1xhr0fi15j"]
+
+[ext_resource type="Script" path="res://Levels/PreExit.gd" id="1_o816f"]
+[ext_resource type="Texture2D" uid="uid://dl700q7wb2vr6" path="res://Assets/portal_end.png" id="2_s15oo"]
+[ext_resource type="Texture2D" uid="uid://dsvfoeyxcg46j" path="res://Assets/confetti.png" id="3_fa5rf"]
+[ext_resource type="AudioStream" uid="uid://cpi5lf4kujsew" path="res://Assets/198843__church-bell.mp3" id="4_piq8w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tpor8"]
+size = Vector2(75, 159)
+
+[sub_resource type="Curve" id="Curve_cnoit"]
+max_value = 500.0
+_data = [Vector2(0.00549451, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.305263), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_whum6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="PreExit" type="Area2D"]
+position = Vector2(-154, 16)
+script = ExtResource("1_o816f")
+metadata/_edit_group_ = true
+
+[node name="Pre_Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3640, 486)
+texture = ExtResource("2_s15oo")
+
+[node name="Pre_Collisionshape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3643.5, 496.5)
+shape = SubResource("RectangleShape2D_tpor8")
+
+[node name="Confetti" type="CPUParticles2D" parent="."]
+position = Vector2(3643, 410)
+emitting = false
+amount = 100
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.9
+randomness = 1.0
+texture = ExtResource("3_fa5rf")
+direction = Vector2(0, -1)
+spread = 100.0
+initial_velocity_min = 100.0
+initial_velocity_max = 250.0
+angular_velocity_max = 800.0
+scale_amount_curve = SubResource("Curve_cnoit")
+color_ramp = SubResource("Gradient_whum6")
+hue_variation_max = 1.0
+
+[node name="PreExit_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_piq8w")
+volume_db = 0.2
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 #@export var walking = 500
 
-@export var walking = 100
+@export var walking = 50
 
 @export var running = 1000
 
@@ -21,22 +21,22 @@ var direction = 1
 func _ready():
 	position = path[0]
 	
-	print(position)
+	#print(position)
 	
 	velocity.x = walking
 	SM.set_state("Move")
 	
-	print(position)
+	#print(position)
 
 func _physics_process(_delta):
 	move_and_slide()
 	
-	print(position)
+	#print(position)
 	
 	if position.x < 320: direction = 1
 	if position.x > 3000: direction = -1
 	
-	print("direction  ", direction)
+	#print("direction  ", direction)
 	
 	
 	if velocity.x < 0 and not $AnimatedSprite2D.flip_h: 
@@ -50,7 +50,7 @@ func _physics_process(_delta):
 	if $AnimatedSprite2D.animation == "Attack": $AnimatedSprite2D.offset.x = 7*direction
 	else: $AnimatedSprite2D.offset.x = 0
 	
-	print(position)
+	#print(position)
 	
 func set_animation(anim):
 	if $AnimatedSprite2D.animation == anim and $AnimatedSprite2D.is_playing(): return
@@ -68,8 +68,13 @@ func should_attack():
 	return false
 
 func attack_target():
+	
+	
+	
 	if $Attack.is_colliding():
+		
 		return $Attack.get_collider()
+		
 	return null
 
 func _on_AnimatedSprite_animation_finished():
@@ -84,11 +89,15 @@ func _on_attack_body_entered(body):
 		queue_free()
 
 func die():
+	var death_sound = get_node_or_null("/root/Game/OrcDeath_sound")
+	if death_sound != null:
+		death_sound.play()
 	queue_free()
 
 func _on_Above_and_Below_body_entered(body):
 	if body.name == "Player" :
 		body.die()
-		queue_free()
+		if SM.state_name != "Attack":
+			queue_free()
 
 	

@@ -9,6 +9,21 @@ var fade_out = ""
 
 var death_zone = 1000
 
+var VP = Vector2.ZERO
+var score = 200
+var lives = 0
+var time = 200
+
+var coins = 0
+
+
+
+func reset():
+	get_tree().paused = false
+	score = 200
+	time = 200
+	lives = 5
+
 
 func _unhandled_input(event):
 	if event.is_action_pressed("quit"):
@@ -50,5 +65,26 @@ func execute_fade_out(_target):
 		if fade.color.a >= 1:
 			fade_out = ""
 			
+
+
+func add_coin():
+	coins += 1
+	
+	
+func update_score(s):
+	score += s
+	var hud = get_node_or_null("/root/Game/UI/HUD")
+	if hud != null:
+		hud.update_score()
+	
+func update_time(t):
+	time += t
+	update_score(t)
+	
+
+	
+	
+	
+
 
 

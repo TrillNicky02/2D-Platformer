@@ -222,10 +222,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sh3mo"]
-size = Vector2(40, 43)
+size = Vector2(22, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xv05n"]
-size = Vector2(42, 20)
+size = Vector2(24, 24)
 
 [node name="Orc" type="CharacterBody2D"]
 scale = Vector2(1.5, 1.5)
@@ -237,12 +237,12 @@ sprite_frames = SubResource("SpriteFrames_63r71")
 animation = &"Moving"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 12.5)
+position = Vector2(-3, 12)
 shape = SubResource("RectangleShape2D_sh3mo")
 
 [node name="Attack" type="RayCast2D" parent="."]
 position = Vector2(0, 12)
-target_position = Vector2(10, 0)
+target_position = Vector2(23.3333, 0.666667)
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_dcrm2")
@@ -254,7 +254,6 @@ script = ExtResource("3_4sfmq")
 script = ExtResource("5_1s0qo")
 
 [node name="Timer" type="Timer" parent="StateMachine/Attack"]
-wait_time = 2.25
 one_shot = true
 
 [node name="Die" type="Node" parent="StateMachine"]
@@ -263,7 +262,7 @@ script = ExtResource("6_3c30t")
 [node name="Above_and_Below" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Above_and_Below"]
-position = Vector2(2, 0)
+position = Vector2(-3.33333, 1.33333)
 shape = SubResource("RectangleShape2D_xv05n")
 
 [connection signal="timeout" from="StateMachine/Attack/Timer" to="StateMachine/Attack" method="_on_Timer_timeout"]

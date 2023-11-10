@@ -1,12 +1,21 @@
-[gd_scene load_steps=14 format=3 uid="uid://bb5l25008suop"]
+[gd_scene load_steps=27 format=3 uid="uid://bb5l25008suop"]
 
 [ext_resource type="Texture2D" uid="uid://dqhfol7a3q2cw" path="res://Assets/portal_start.png" id="1_wx2aq"]
 [ext_resource type="Texture2D" uid="uid://cnnkibx1gfamf" path="res://Assets/Tiles.png" id="1_yefrw"]
 [ext_resource type="Script" path="res://Levels/Spawn.gd" id="2_ns5vt"]
 [ext_resource type="Script" path="res://Levels/Exit.gd" id="3_avhak"]
 [ext_resource type="Texture2D" uid="uid://dl700q7wb2vr6" path="res://Assets/portal_end.png" id="4_kspwv"]
+[ext_resource type="Texture2D" uid="uid://blknho2sj8n2d" path="res://Assets/coin.png" id="6_1f1ip"]
+[ext_resource type="Texture2D" uid="uid://dsvfoeyxcg46j" path="res://Assets/confetti.png" id="6_2n4ac"]
 [ext_resource type="Script" path="res://StateMachine/Player_Container.gd" id="6_eino2"]
 [ext_resource type="PackedScene" uid="uid://bp3akucote8ju" path="res://Levels/Camera.tscn" id="6_min22"]
+[ext_resource type="PackedScene" uid="uid://0672ntq73hnh" path="res://Enemies/Wolf.tscn" id="7_04jrt"]
+[ext_resource type="Script" path="res://Player/Coins.gd" id="7_ppcyp"]
+[ext_resource type="Script" path="res://UI/HUD.gd" id="8_a4q7q"]
+[ext_resource type="FontFile" uid="uid://dwxfgvmf781w3" path="res://Assets/Hyperspace Bold.otf" id="9_uofe6"]
+[ext_resource type="AudioStream" uid="uid://bjbbnor4apxfn" path="res://Assets/myMix1.mp3" id="14_26rqw"]
+[ext_resource type="AudioStream" uid="uid://dhqm15oitsgrr" path="res://Assets/myWolf.mp3" id="15_fxvaq"]
+[ext_resource type="AudioStream" uid="uid://bumqupmkir52v" path="res://Assets/209578__cash-register-purchase.mp3" id="16_030tk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8u260"]
 texture = ExtResource("1_yefrw")
@@ -254,6 +263,28 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_733g1"]
 sources/0 = SubResource("TileSetAtlasSource_8u260")
+
+[sub_resource type="Curve" id="Curve_gm7pq"]
+max_value = 500.0
+_data = [Vector2(0.00549451, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.305263), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_odru5"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t6uvj"]
+texture = ExtResource("6_1f1ip")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSet" id="TileSet_f4la4"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 8
+sources/0 = SubResource("TileSetAtlasSource_t6uvj")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y7s6o"]
 texture = ExtResource("1_yefrw")
@@ -1264,15 +1295,42 @@ texture = ExtResource("4_kspwv")
 position = Vector2(3643, 494)
 polygon = PackedVector2Array(-9, -68, -34, -9, -30, 33, -3, 67, 33, 31, 30, -35)
 
+[node name="Confetti" type="CPUParticles2D" parent="Exit_to_3"]
+position = Vector2(3643, 410)
+emitting = false
+amount = 100
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.9
+randomness = 1.0
+texture = ExtResource("6_2n4ac")
+direction = Vector2(0, -1)
+spread = 100.0
+initial_velocity_min = 100.0
+initial_velocity_max = 250.0
+angular_velocity_max = 800.0
+scale_amount_curve = SubResource("Curve_gm7pq")
+color_ramp = SubResource("Gradient_odru5")
+hue_variation_max = 1.0
+
+[node name="Coins" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_f4la4")
+format = 2
+layer_0/tile_data = PackedInt32Array(196608, 0, 0, 196612, 0, 0, 131079, 0, 0, 65546, 0, 0, 131083, 0, 0, 196621, 0, 0, 131087, 0, 0, 196625, 0, 0, 131091, 0, 0, 131093, 0, 0, 65559, 0, 0, 131097, 0, 0, 131098, 0, 0, 131099, 0, 0)
+script = ExtResource("7_ppcyp")
+
 [node name="Player_Container" type="Node2D" parent="."]
 script = ExtResource("6_eino2")
 
 [node name="Enemy_Container" type="Node2D" parent="."]
 
+[node name="Wolf" parent="Enemy_Container" instance=ExtResource("7_04jrt")]
+position = Vector2(3000, 555)
+
 [node name="Platform" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_yo41u")
 format = 2
-layer_0/tile_data = PackedInt32Array(589824, 65536, 9, 589825, 131072, 9, 589826, 131072, 9, 589827, 131072, 9, 589828, 131072, 9, 589829, 131072, 9, 589830, 131072, 9, 589831, 131072, 9, 589832, 131072, 9, 589833, 131072, 9, 589834, 131072, 9, 589835, 131072, 9, 589836, 131072, 9, 589837, 131072, 9, 589838, 131072, 9, 589839, 131072, 9, 589840, 131072, 9, 589841, 131072, 9, 589842, 131072, 9, 589843, 131072, 9, 589850, 131072, 9, 589849, 131072, 9, 589848, 131072, 9, 589851, 131072, 9, 589852, 131072, 9, 589853, 131072, 9, 589854, 131072, 9, 589855, 131072, 9, 589856, 131072, 9, 589857, 131072, 9, 589858, 131072, 9, 589859, 131072, 9, 589860, 131072, 9, 589861, 131072, 9, 589862, 131072, 9, 589863, 131072, 9, 589864, 131072, 9, 589865, 131072, 9, 589875, 131072, 9, 589876, 131072, 9, 589877, 131072, 9, 589878, 131072, 9, 589879, 131072, 9, 589880, 131072, 9, 589844, 131072, 9, 589866, 131072, 9, 589867, 131072, 9, 589868, 131072, 9, 589869, 131072, 9, 589870, 131072, 9, 589871, 131072, 9, 589872, 131072, 9, 589873, 131072, 9, 589845, 131072, 9, 589846, 131072, 9, 589847, 131072, 9, 589874, 131072, 9, 589881, 131072, 9, 589882, 131072, 9, 655359, 131072, 9, 262149, 196608, 9, 262150, 196608, 9, 327691, 196608, 9, 327692, 196608, 9, 393238, 196608, 9, 393239, 196608, 9, 327712, 196608, 9, 327713, 196608, 9, 393257, 196608, 9, 393258, 196608, 9, 327726, 196608, 9, 327727, 196608, 9, 393266, 196608, 9, 393267, 196608, 9, 393269, 196608, 9, 589823, 196608, 9, 524287, 196608, 9, 458751, 196608, 9, 393215, 196608, 9, 327679, 196608, 9, 262143, 196608, 9, 196607, 196608, 9, 131071, 196608, 9, 524346, 196608, 9, 458810, 196608, 9, 393274, 196608, 9, 327738, 196608, 9, 262202, 196608, 9, 196666, 196608, 9, 131130, 196608, 9, 65594, 196608, 9, 58, 196608, 9, -65478, 196608, 9, -131014, 196608, 9, -196550, 196608, 9, -262086, 196608, 9, -327622, 196608, 9, -393158, 196608, 9, -458694, 196608, 9, -393160, 196608, 9, -327624, 196608, 9, -327625, 196608, 9, 65535, 196608, 9, -1, 196608, 9, -65537, 196608, 9, -131073, 196608, 9, -196609, 196608, 9, -262145, 196608, 9, 458773, 196608, 9, 458774, 196608, 9, 458775, 196608, 9, 458776, 196608, 9, 524308, 196608, 9, 524309, 196608, 9, 524310, 196608, 9, 524311, 196608, 9, 524312, 196608, 9, 524313, 196608, 9)
+layer_0/tile_data = PackedInt32Array(589824, 65536, 9, 589825, 131072, 9, 589826, 131072, 9, 589827, 131072, 9, 589828, 131072, 9, 589829, 131072, 9, 589830, 131072, 9, 589831, 131072, 9, 589832, 131072, 9, 589833, 131072, 9, 589834, 131072, 9, 589835, 131072, 9, 589836, 131072, 9, 589837, 131072, 9, 589838, 131072, 9, 589839, 131072, 9, 589840, 131072, 9, 589841, 131072, 9, 589842, 131072, 9, 589843, 131072, 9, 589850, 131072, 9, 589849, 131072, 9, 589848, 131072, 9, 589851, 131072, 9, 589852, 131072, 9, 589853, 131072, 9, 589854, 131072, 9, 589855, 131072, 9, 589856, 131072, 9, 589857, 131072, 9, 589858, 131072, 9, 589859, 131072, 9, 589860, 131072, 9, 589861, 131072, 9, 589862, 131072, 9, 589863, 131072, 9, 589864, 131072, 9, 589865, 131072, 9, 589875, 131072, 9, 589876, 131072, 9, 589877, 131072, 9, 589878, 131072, 9, 589879, 131072, 9, 589880, 131072, 9, 589844, 131072, 9, 589866, 131072, 9, 589867, 131072, 9, 589868, 131072, 9, 589869, 131072, 9, 589870, 131072, 9, 589871, 131072, 9, 589872, 131072, 9, 589873, 131072, 9, 589845, 131072, 9, 589846, 131072, 9, 589847, 131072, 9, 589874, 131072, 9, 589881, 131072, 9, 589882, 131072, 9, 655359, 131072, 9, 262149, 196608, 9, 262150, 196608, 9, 327691, 196608, 9, 327692, 196608, 9, 327712, 196608, 9, 327713, 196608, 9, 393257, 196608, 9, 393258, 196608, 9, 327726, 196608, 9, 327727, 196608, 9, 393266, 196608, 9, 393267, 196608, 9, 393269, 196608, 9, 589823, 196608, 9, 524287, 196608, 9, 458751, 196608, 9, 393215, 196608, 9, 327679, 196608, 9, 262143, 196608, 9, 196607, 196608, 9, 131071, 196608, 9, 524346, 196608, 9, 458810, 196608, 9, 393274, 196608, 9, 327738, 196608, 9, 262202, 196608, 9, 196666, 196608, 9, 131130, 196608, 9, 65594, 196608, 9, 58, 196608, 9, -65478, 196608, 9, -131014, 196608, 9, -196550, 196608, 9, -262086, 196608, 9, -327622, 196608, 9, -393158, 196608, 9, -458694, 196608, 9, -393160, 196608, 9, -327624, 196608, 9, -327625, 196608, 9, 65535, 196608, 9, -1, 196608, 9, -65537, 196608, 9, -131073, 196608, 9, -196609, 196608, 9, -262145, 196608, 9, 458773, 196608, 9, 458774, 196608, 9, 458775, 196608, 9, 458776, 196608, 9, 524308, 196608, 9, 524309, 196608, 9, 524310, 196608, 9, 524311, 196608, 9, 524312, 196608, 9, 524313, 196608, 9)
 
 [node name="Foreground" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_i8cr2")
@@ -1281,4 +1339,58 @@ layer_0/tile_data = PackedInt32Array(2162694, 655360, 11, 2162729, 655360, 11, 2
 
 [node name="Camera" parent="." instance=ExtResource("6_min22")]
 
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_a4q7q")
+
+[node name="Score" type="Label" parent="UI/HUD"]
+layout_mode = 1
+offset_left = 10.0
+offset_right = 210.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("9_uofe6")
+theme_override_font_sizes/font_size = 20
+text = "Score:"
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -212.0
+offset_right = -12.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("9_uofe6")
+theme_override_font_sizes/font_size = 20
+text = "Time:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="UI/HUD"]
+autostart = true
+
+[node name="Level2_Music1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_26rqw")
+volume_db = 0.2
+autoplay = true
+
+[node name="Wolf_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_fxvaq")
+volume_db = 0.2
+autoplay = true
+
+[node name="Coin_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_030tk")
+volume_db = 0.2
+
 [connection signal="body_entered" from="Exit_to_3" to="Exit_to_3" method="_on_Exit_body_entered"]
+[connection signal="timeout" from="UI/HUD/Timer" to="UI/HUD" method="_on_timer_timeout"]

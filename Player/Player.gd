@@ -106,13 +106,23 @@ func attack():
 		print(target)
 		if target.has_method("damage"):
 			target.damage()
+			
+		if target.has_method("die"):
+			target.die()	
+			
 	if $Attack_low.is_colliding():
 		var target = $Attack_low.get_collider()
 		print(target)
 		if target.has_method("damage"):
 			target.damage()
+			
+		if target.has_method("die"):
+			target.die()
 
 func die():
+	var death_sound = get_node_or_null("/root/Game/PlayerDeath_sound")
+	if death_sound != null:
+		death_sound.play()
 	queue_free()
 
 
@@ -120,3 +130,8 @@ func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite2D.animation == "Attacking":
 		SM.set_state("Idle")
 
+
+
+func _on_coin_collector_body_entered(body):
+	if body.name == "Coins":
+		body.get_coin(global_position)
