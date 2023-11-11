@@ -24,16 +24,18 @@ When he reaches Level 2 Gateway he gains an extra 1000 points, and he gains an e
 * 2 distinct Levels are implemented.
 * Tile Map nodes are implemented.
 * Player is spawned after dying
-* enemies are spawned after dying
+* Enemies are spawned after dying
 * Menus and HUD were implemented.
+* New Theme implemented to improve the User Interface
 * Sounds were created. downloaded and edited to go along with the various actors and activities in the game.
-* Music mixes were created from downloaded pieces to be used with different scenes and levels inthe game
+* Music mixes were created from downloaded pieces to be used with different scenes and levels in the game
 * Shaders were modified and used to improve  the appearance of the menus
 * Fireworks were implemented
 * Screen Shakes were implemented.
 * Coins and a Coin-Collector system was implemented.
-* Very beautiful and effective
+* Very beautiful and effective menus wre used to direct the player
 * Start and End Game experience was greatly improved.
+* Confetti was used to make part of the game more interesting.
 
 ## References
 # Player.png animation sheet downloaded from Professor Jason Francis.
