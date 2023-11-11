@@ -43,6 +43,11 @@ When he reaches Level 2 Gateway he gains an extra 1000 points, and he gains an e
 # The terrain spritemap is from the [Abstract Platformer package](https://kenney.nl/assets/abstract-platformer) available at Kenney.nl.
 #  I downloaded and used  the Basic Platformer tileset of  by Myna Studios https://mynastudios.itch.io/basic-platformer-tileset
 # I used heavily the video of Professor Jason Francis and was heavily inspired by his work in Exercise 3.4
+# The sounds were downloaded from freesound.org under Creative Common 0 License and edited by me
+# some sounds were created by me
+# The music African Safari Beat was obtained from FreeSound.org  (African Safari Beat  by tictac 9 https://freesound.org/people/tictac9/sounds/515434/) (Attribution non commercial 3.0 license
+# The music Tribal drums jungle beat  https://freesound.org/people/szegvari/sounds/608808/ has a Creative Common 0 License.
+
 
 ## Future Development
 Add more activities
