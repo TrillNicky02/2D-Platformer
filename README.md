@@ -4,13 +4,36 @@ Project 4 Part2 for MSCH-C220
 Oct 24, 2023
 
 Description
-Part2 of a Platformer game. To play use the Keyboard.
+Final Installment of a 2D-Platformer game Project 4. To play use the Keyboard. (Esc: quit; "A": move Left; "D" : move Right; "W" : Jump; "Space Bar" : Attack) 
+The player is given 200 points at the start and is given a certain time limit (200 seconds) to travel from the starting gate to the end gate.  As the countdown proceeds the player looses 1 point for each time unit that passes.
+When he reaches Level 2 Gateway he gains an extra 1000 points, and he gains an extra 2000 points when he reaches the End  gate. In level 2 he can collect coins and 100 points per coin. on Level 1 he has 2 enemies trying to stop him or slow him down. in Level 2 he has 1 enemy but loses time trying to collect coins.
 
 ## Implementation
 * Built using Godot 4.1.1
-* A State Machine is implemented
-* 2 levels are implemented
-* Tile Map nodes are implemented
+* Repository contains a descriptive README.md
+* User-controlled player implemented
+* The player can jump, walk,run, die or Idle
+* The player can attack
+* 3 enemies are implemented
+* They can do various activities, move, attack, jump
+* A scoring system implemented to keep track of time and the score and the performancefor the player
+* The time and score for the player are on-screen throughout the game.
+* The camera follows the player constantly
+* Player affected by the terrain and landscape
+* State Machines are implemented for player and enemies.
+* 2 distinct Levels are implemented.
+* Tile Map nodes are implemented.
+* Player is spawned after dying
+* enemies are spawned after dying
+* Menus and HUD were implemented.
+* Sounds were created. downloaded and edited to go along with the various actors and activities in the game.
+* Music mixes were created from downloaded pieces to be used with different scenes and levels inthe game
+* Shaders were modified and used to improve  the appearance of the menus
+* Fireworks were implemented
+* Screen Shakes were implemented.
+* Coins and a Coin-Collector system was implemented.
+* Very beautiful and effective
+* Start and End Game experience was greatly improved.
 
 ## References
 # Player.png animation sheet downloaded from Professor Jason Francis.
