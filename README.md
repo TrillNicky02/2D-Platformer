@@ -1,19 +1,19 @@
 # 2D-Platformer
-Project 4 Part2 for MSCH-C220
+Project 4 Final Version for MSCH-C220
 
-Oct 24, 2023
+Nov 10, 2023
 
 Description
 Final Installment of a 2D-Platformer game Project 4. To play use the Keyboard. (Esc: quit; "A": move Left; "D" : move Right; "W" : Jump; "Space Bar" : Attack) 
 The player is given 200 points at the start and is given a certain time limit (200 seconds) to travel from the starting gate to the end gate.  As the countdown proceeds the player looses 1 point for each time unit that passes.
-When he reaches Level 2 Gateway he gains an extra 1000 points, and he gains an extra 2000 points when he reaches the End  gate. In level 2 he can collect coins and 100 points per coin. on Level 1 he has 2 enemies trying to stop him or slow him down. in Level 2 he has 1 enemy but loses time trying to collect coins.
+When he reaches Level 2 Gateway he gains an extra 1000 points, and he gains an extra 2000 points when he reaches the End  gate. In level 2 he can collect coins and 100 points per coin. on Level 1 he has 2 enemies trying to stop him or slow him down. in Level 2 he has 1 enemy but loses time trying to collect coins. 
 
 ## Implementation
 * Built using Godot 4.1.1
 * Repository contains a descriptive README.md
 * User-controlled player implemented
-* The player can jump, walk,run, die or Idle
-* The player can attack
+* The player can jump, double jump, walk,run, die or Idle
+* The player can also attack
 * 3 enemies are implemented
 * They can do various activities, move, attack, jump
 * A scoring system implemented to keep track of time and the score and the performancefor the player
@@ -47,6 +47,17 @@ When he reaches Level 2 Gateway he gains an extra 1000 points, and he gains an e
 # some sounds were created by me
 # The music African Safari Beat was obtained from FreeSound.org  (African Safari Beat  by tictac 9 https://freesound.org/people/tictac9/sounds/515434/) (Attribution non commercial 3.0 license
 # The music Tribal drums jungle beat  https://freesound.org/people/szegvari/sounds/608808/ has a Creative Common 0 License.
+# [Juice it or lose it — a talk by Martin Jonasson & Petri Purho](https://www.youtube.com/watch?v=Fy0aCDmgnxg)
+# [Puzzle Pack 2, provided by kenney.nl](https://kenney.nl/assets/puzzle-pack-2)
+# [League Gothic Typeface](https://www.theleagueofmoveabletype.com/league-gothic)
+# [Orbitron Typeface](https://www.theleagueofmoveabletype.com/orbitron)
+# Scrren Shake technique developped by Squirrel Eiserloh and KidsCanCode
+# music3 was obtained from Freesound.org created by Migfus20 under the Attribution 4.0 License.
+# the sound Arcade Die from Freesound.org was created by Aesterial-Arts under the Attribution 4.0 License.
+#  Shaders:
+	  * [Fireworks by Tsar333](https://godotshaders.com/shader/fireworks/)
+	  * [2D Procedural Water by flytrap](https://godotshaders.com/shader/perlin-procedural-water/)
+ # The Videos of Professor Jason Francis provided me with a lot of help and guidance for completing this project.
 
 
 ## Future Development
